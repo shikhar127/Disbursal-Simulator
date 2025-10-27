@@ -1,73 +1,166 @@
-# React + TypeScript + Vite
+# Loan Disbursal Simulator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An interactive React-based web application for simulating loan disbursement funnels over time with side-by-side scenario comparison. Built to help analyze and forecast loan performance metrics across different conversion assumptions.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Core Functionality
+- **Multi-Scenario Analysis**: Support for 2-4 scenarios displayed side-by-side with independent parameters
+- **Preset Templates**: Quick start with Optimistic, Conservative, or Custom scenarios
+- **Interactive Data Tables**: Excel-like inline editing with real-time calculations
+- **Advanced Calculations**: Automatic computation of:
+  - Total new loans from download funnel
+  - Disbursals from new users
+  - Cumulative user tracking
+  - Repeat disbursals based on previous users
+  - Total disbursals (new + repeat)
 
-## React Compiler
+### Global Parameters
+- Average Ticket Size (New Users)
+- Repeat Ticket Size
+- Repeat Conversion Rate
+- Number of Months (configurable 1-60)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Input Metrics (Per Month)
+- Downloads
+- Loan Page Conversion %
+- Underwriting Pass Rate %
+- Disbursal Rate %
+- Conversion Rate %
 
-## Expanding the ESLint configuration
+### Visualizations
+- **Stacked Bar Charts**: Monthly new vs repeat disbursals per scenario
+- **Line Graphs**: Cumulative user growth across all scenarios
+- **Summary Cards**: Total disbursals, final users, average monthly disbursal
+- **Funnel Visualization**: Aggregate conversion funnel across all months
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Data Management
+- **CSV Import/Export**: Full data portability
+- **PDF Reports**: Professional export with formulas and summaries
+- **LocalStorage Persistence**: Auto-save scenarios between sessions
+- **Undo/Redo**: Full editing history support
+- **Scenario Operations**: Add, delete, duplicate, and reset scenarios
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### User Experience
+- **Dark Mode**: Toggle between light and dark themes
+- **Responsive Design**: Desktop-first with mobile accordion fallback
+- **Input Validation**: Real-time validation with visual feedback
+- **Tooltips**: Formula explanations on calculated cells
+- **Sticky Headers**: Easy navigation through long tables
+- **Color Coding**: Visual distinction between input and calculated fields
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Tech Stack
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- **Framework**: React 18+ with TypeScript
+- **Build Tool**: Vite
+- **Styling**: Tailwind CSS with dark mode support
+- **State Management**: Zustand with persistence middleware
+- **Charts**: Recharts
+- **Data Processing**: PapaParse (CSV), jsPDF (PDF export)
+- **Icons**: Lucide React
+
+## Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/shikhar127/Disbursal-Simulator.git
+cd Disbursal-Simulator
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Usage
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+1. **Select or Create a Scenario**: Choose from preset scenarios or create custom ones
+2. **Configure Global Parameters**: Set ticket sizes, conversion rates, and timeframe
+3. **Edit Monthly Data**: Click cells to edit downloads and conversion rates
+4. **Review Calculations**: All metrics update automatically in real-time
+5. **Analyze Visualizations**: Compare scenarios using charts and graphs
+6. **Export Results**: Download CSV data or PDF reports
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Calculation Formulas
+
+### Total New Loans
 ```
+Total New Loans = Downloads × Loan Page % × Underwriting % × Disbursal %
+```
+
+### Disbursal from New (Crores)
+```
+Disbursal from New = (Total New Loans × Avg Ticket Size) / 10,000,000
+```
+
+### Cumulative New Users
+```
+Cumulative New Users = Running sum of Total New Loans from Month 1 to current month
+```
+
+### Repeat Disbursal (Crores)
+```
+Month 1: 0
+Month N: (Previous Month's Cumulative Users × Repeat Conversion Rate × Repeat Ticket Size) / 10,000,000
+```
+
+### Total Disbursal
+```
+Total = Disbursal from New + Repeat Disbursal
+```
+
+## Project Structure
+
+```
+src/
+├── components/
+│   ├── Charts.tsx           # Visualization components
+│   ├── DataTable.tsx        # Interactive editable table
+│   ├── GlobalParams.tsx     # Global parameter inputs
+│   ├── ScenarioManager.tsx  # Scenario CRUD and exports
+│   └── SummaryCards.tsx     # Metric summary cards
+├── store/
+│   └── useStore.ts          # Zustand state management
+├── utils/
+│   ├── calculations.ts      # Calculation logic
+│   └── cn.ts                # Tailwind utility
+├── types.ts                 # TypeScript interfaces
+├── App.tsx                  # Main application
+└── main.tsx                 # Entry point
+```
+
+## Development
+
+### Key Concepts
+
+**State Management**: The app uses Zustand for centralized state with localStorage persistence. All scenario data, history, and preferences are automatically saved.
+
+**Real-time Calculations**: Updates are triggered on any input change, recalculating all dependent fields using the formulas defined in `utils/calculations.ts`.
+
+**Type Safety**: Full TypeScript coverage ensures data integrity and catches errors at compile time.
+
+### Adding New Features
+
+1. Update types in `src/types.ts`
+2. Modify calculation logic in `src/utils/calculations.ts`
+3. Update Zustand store actions in `src/store/useStore.ts`
+4. Add UI components as needed
+
+## License
+
+MIT
+
+## Author
+
+Built with React, TypeScript, and modern web technologies.
+
+---
+
+**Note**: All calculations are performed client-side. No data is sent to external servers. All scenario data is stored locally in your browser.
