@@ -145,18 +145,18 @@ export const ScenarioManager: React.FC<ScenarioManagerProps> = ({
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-6">
+    <div className="bg-gradient-to-br from-white to-indigo-50/30 dark:from-gray-800 dark:to-gray-800/50 rounded-2xl shadow-xl border border-gray-200/50 dark:border-gray-700/50 p-6 mb-6 backdrop-blur-sm animate-slide-up">
       <div className="flex flex-wrap items-center justify-between gap-4">
         {/* Scenario Tabs */}
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-3">
           {scenarios.map((scenario) => (
             <button
               key={scenario.id}
               onClick={() => onSetActiveScenario(scenario.id)}
-              className={`px-4 py-2 rounded-md font-medium transition-colors ${
+              className={`px-6 py-2.5 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 ${
                 scenario.id === activeScenarioId
-                  ? 'bg-blue-500 text-white'
-                  : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
+                  ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg shadow-blue-500/50'
+                  : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-gray-300 hover:to-gray-200 dark:hover:from-gray-600 dark:hover:to-gray-700 shadow-md'
               }`}
             >
               {scenario.name}
@@ -169,7 +169,7 @@ export const ScenarioManager: React.FC<ScenarioManagerProps> = ({
           <button
             onClick={onUndo}
             disabled={!canUndo}
-            className="p-2 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="p-2.5 rounded-xl bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-gray-300 hover:to-gray-200 dark:hover:from-gray-600 dark:hover:to-gray-700 disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:shadow-lg transition-all duration-200 hover:scale-105"
             title="Undo"
           >
             <Undo className="w-5 h-5" />
@@ -177,21 +177,21 @@ export const ScenarioManager: React.FC<ScenarioManagerProps> = ({
           <button
             onClick={onRedo}
             disabled={!canRedo}
-            className="p-2 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="p-2.5 rounded-xl bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-gray-300 hover:to-gray-200 dark:hover:from-gray-600 dark:hover:to-gray-700 disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:shadow-lg transition-all duration-200 hover:scale-105"
             title="Redo"
           >
             <Redo className="w-5 h-5" />
           </button>
           <button
             onClick={onToggleDarkMode}
-            className="p-2 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600"
+            className="p-2.5 rounded-xl bg-gradient-to-r from-yellow-400 to-orange-500 text-white hover:from-yellow-500 hover:to-orange-600 shadow-md hover:shadow-lg hover:shadow-yellow-500/50 transition-all duration-200 hover:scale-105"
             title="Toggle Dark Mode"
           >
             {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
           </button>
           <button
             onClick={() => setShowAddDialog(true)}
-            className="flex items-center gap-2 px-4 py-2 rounded-md bg-green-500 text-white hover:bg-green-600"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:from-green-600 hover:to-emerald-700 shadow-md hover:shadow-lg hover:shadow-green-500/50 transition-all duration-200 font-semibold hover:scale-105"
             title="Add Scenario"
           >
             <Plus className="w-5 h-5" />
@@ -199,7 +199,7 @@ export const ScenarioManager: React.FC<ScenarioManagerProps> = ({
           </button>
           <button
             onClick={() => activeScenario && onDuplicateScenario(activeScenarioId)}
-            className="flex items-center gap-2 px-4 py-2 rounded-md bg-blue-500 text-white hover:bg-blue-600"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-600 text-white hover:from-blue-600 hover:to-indigo-700 shadow-md hover:shadow-lg hover:shadow-blue-500/50 transition-all duration-200 font-semibold hover:scale-105"
             title="Duplicate Scenario"
           >
             <Copy className="w-5 h-5" />
@@ -207,7 +207,7 @@ export const ScenarioManager: React.FC<ScenarioManagerProps> = ({
           </button>
           <button
             onClick={() => activeScenario && onResetScenario(activeScenarioId)}
-            className="flex items-center gap-2 px-4 py-2 rounded-md bg-orange-500 text-white hover:bg-orange-600"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 text-white hover:from-orange-600 hover:to-red-600 shadow-md hover:shadow-lg hover:shadow-orange-500/50 transition-all duration-200 font-semibold hover:scale-105"
             title="Reset Scenario"
           >
             <RotateCcw className="w-5 h-5" />
@@ -216,13 +216,13 @@ export const ScenarioManager: React.FC<ScenarioManagerProps> = ({
           <button
             onClick={() => scenarios.length > 1 && onDeleteScenario(activeScenarioId)}
             disabled={scenarios.length === 1}
-            className="flex items-center gap-2 px-4 py-2 rounded-md bg-red-500 text-white hover:bg-red-600 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-red-500 to-pink-600 text-white hover:from-red-600 hover:to-pink-700 disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:shadow-lg hover:shadow-red-500/50 transition-all duration-200 font-semibold hover:scale-105"
             title="Delete Scenario"
           >
             <Trash2 className="w-5 h-5" />
             <span>Delete</span>
           </button>
-          <label className="flex items-center gap-2 px-4 py-2 rounded-md bg-purple-500 text-white hover:bg-purple-600 cursor-pointer">
+          <label className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-purple-500 to-violet-600 text-white hover:from-purple-600 hover:to-violet-700 cursor-pointer shadow-md hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-200 font-semibold hover:scale-105">
             <Upload className="w-5 h-5" />
             <span>Import CSV</span>
             <input
@@ -234,7 +234,7 @@ export const ScenarioManager: React.FC<ScenarioManagerProps> = ({
           </label>
           <button
             onClick={handleExportCSV}
-            className="flex items-center gap-2 px-4 py-2 rounded-md bg-indigo-500 text-white hover:bg-indigo-600"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-500 to-blue-600 text-white hover:from-indigo-600 hover:to-blue-700 shadow-md hover:shadow-lg hover:shadow-indigo-500/50 transition-all duration-200 font-semibold hover:scale-105"
             title="Export CSV"
           >
             <Download className="w-5 h-5" />
@@ -242,7 +242,7 @@ export const ScenarioManager: React.FC<ScenarioManagerProps> = ({
           </button>
           <button
             onClick={handleExportPDF}
-            className="flex items-center gap-2 px-4 py-2 rounded-md bg-pink-500 text-white hover:bg-pink-600"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-pink-500 to-rose-600 text-white hover:from-pink-600 hover:to-rose-700 shadow-md hover:shadow-lg hover:shadow-pink-500/50 transition-all duration-200 font-semibold hover:scale-105"
             title="Export PDF"
           >
             <Download className="w-5 h-5" />
@@ -253,9 +253,9 @@ export const ScenarioManager: React.FC<ScenarioManagerProps> = ({
 
       {/* Add Scenario Dialog */}
       {showAddDialog && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-md w-full mx-4">
-            <h3 className="text-xl font-bold mb-4 text-gray-800 dark:text-gray-100">Add New Scenario</h3>
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 animate-fade-in">
+          <div className="bg-gradient-to-br from-white to-blue-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl shadow-2xl border border-gray-200/50 dark:border-gray-700/50 p-8 max-w-md w-full mx-4 animate-scale-in">
+            <h3 className="text-2xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Add New Scenario</h3>
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">

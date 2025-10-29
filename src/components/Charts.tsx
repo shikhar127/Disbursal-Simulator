@@ -52,8 +52,8 @@ export const Charts: React.FC<ChartsProps> = ({ scenarios }) => {
       {/* Stacked Bar Charts for each scenario */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {scenarios.map((scenario) => (
-          <div key={scenario.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-            <h3 className="text-lg font-bold mb-4 text-gray-800 dark:text-gray-100">
+          <div key={scenario.id} className="bg-gradient-to-br from-white to-blue-50/30 dark:from-gray-800 dark:to-gray-800/50 rounded-2xl shadow-xl border border-gray-200/50 dark:border-gray-700/50 p-6 backdrop-blur-sm animate-scale-in hover:shadow-2xl transition-all duration-300">
+            <h3 className="text-xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               {scenario.name} - Monthly Disbursals
             </h3>
             <ResponsiveContainer width="100%" height={300}>
@@ -78,8 +78,8 @@ export const Charts: React.FC<ChartsProps> = ({ scenarios }) => {
       </div>
 
       {/* Cumulative Users Line Chart */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-        <h3 className="text-lg font-bold mb-4 text-gray-800 dark:text-gray-100">
+      <div className="bg-gradient-to-br from-white to-purple-50/30 dark:from-gray-800 dark:to-gray-800/50 rounded-2xl shadow-xl border border-gray-200/50 dark:border-gray-700/50 p-6 backdrop-blur-sm animate-scale-in">
+        <h3 className="text-2xl font-bold mb-6 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
           Cumulative Users Growth (All Scenarios)
         </h3>
         <ResponsiveContainer width="100%" height={400}>

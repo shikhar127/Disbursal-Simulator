@@ -54,13 +54,13 @@ export const DataTable: React.FC<DataTableProps> = ({ data, onUpdate }) => {
       <td
         key={cellKey}
         onClick={() => handleCellClick(rowIndex, field, isEditable)}
-        className={`px-4 py-2 text-sm ${
+        className={`px-4 py-3 text-sm transition-all duration-150 ${
           isEditable
-            ? 'bg-white dark:bg-gray-800 cursor-pointer hover:bg-blue-50 dark:hover:bg-gray-700'
+            ? 'bg-white dark:bg-gray-800 cursor-pointer hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 dark:hover:from-gray-700 dark:hover:to-gray-700 hover:shadow-inner'
             : field === 'cumulativeNewUsers'
-            ? 'bg-blue-50 dark:bg-blue-900/20'
-            : 'bg-gray-100 dark:bg-gray-700'
-        } ${isInvalid ? 'border-2 border-red-500' : 'border border-gray-300 dark:border-gray-600'}`}
+            ? 'bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 font-semibold'
+            : 'bg-gray-50 dark:bg-gray-700/50'
+        } ${isInvalid ? 'border-2 border-red-500 animate-pulse' : 'border border-gray-200 dark:border-gray-600'}`}
       >
         {isEditing ? (
           <input
@@ -83,10 +83,10 @@ export const DataTable: React.FC<DataTableProps> = ({ data, onUpdate }) => {
   };
 
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto rounded-xl border border-gray-200 dark:border-gray-700">
       <div className="max-h-[600px] overflow-y-auto">
         <table className="min-w-full border-collapse">
-          <thead className="sticky top-0 z-10 bg-gray-200 dark:bg-gray-700">
+          <thead className="sticky top-0 z-10 bg-gradient-to-r from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 shadow-md">
             <tr>
               <th className="px-4 py-3 text-left text-xs font-bold text-gray-700 dark:text-gray-200 uppercase tracking-wider border border-gray-300 dark:border-gray-600">
                 Month
@@ -125,7 +125,7 @@ export const DataTable: React.FC<DataTableProps> = ({ data, onUpdate }) => {
           </thead>
           <tbody>
             {data.map((row, idx) => (
-              <tr key={row.month} className="hover:bg-gray-50 dark:hover:bg-gray-800/50">
+              <tr key={row.month} className={`transition-colors duration-150 hover:bg-gradient-to-r hover:from-blue-50/50 hover:to-purple-50/50 dark:hover:from-gray-800 dark:hover:to-gray-800 ${idx % 2 === 0 ? 'bg-white/50 dark:bg-gray-900/30' : 'bg-gray-50/30 dark:bg-gray-800/20'}`}>
                 <td className="px-4 py-2 text-sm font-medium text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700">
                   {row.month}
                 </td>
